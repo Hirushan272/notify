@@ -28,4 +28,18 @@ class DataService extends ChangeNotifier {
     }
     return notifyList;
   }
+
+  void deleteNotifyItem(String id) {
+    SharedPref pref = SharedPref();
+    Notify deleteNotify;
+    notifyList.forEach((notify) {
+      if (notify.nid == id) {
+        deleteNotify = notify;
+      }
+    });
+    notifyList.remove(deleteNotify);
+    notifyListeners();
+    final String encodedData = Notify.encode(notifyList);
+    pref.save('NotifyList', encodedData);
+  }
 }

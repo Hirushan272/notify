@@ -20,26 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ProviderScope(
       child: MaterialApp(
-        home: Consumer(
-          builder: (context, watch, child) {
-            final data = watch(dataService);
-            return FutureBuilder<List<Notify>>(
-                future: data.loadData(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    print("BUILD");
-                    print(snapshot.data.length.toString());
-                    return HomePage(
-                      notifyList: snapshot.data,
-                    );
-                  } else {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                });
-          },
-        ),
+        home: HomePage(),
         theme: ThemeData(
           primaryColor: Colors.blueGrey[900],
           buttonColor: Colors.brown[800],
