@@ -4,6 +4,7 @@ import 'package:meating_notifier/screens/add_notify/notify_add.dart';
 import 'package:meating_notifier/service/data_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'models/constants.dart';
+import 'models/notification_model.dart';
 import 'screens/home_page.dart';
 
 void main() async {
@@ -19,7 +20,26 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ProviderScope(
       child: MaterialApp(
-        home: HomePage(),
+        home: Consumer(
+          builder: (context, watch, child) {
+            final data = watch(dataService);
+            return FutureBuilder<List<Notify>>(
+                future: data.loadData(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    print("BUILD");
+                    print(snapshot.data.length.toString());
+                    return HomePage(
+                      notifyList: snapshot.data,
+                    );
+                  } else {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                });
+          },
+        ),
         theme: ThemeData(
           primaryColor: Colors.blueGrey[900],
           buttonColor: Colors.brown[800],
