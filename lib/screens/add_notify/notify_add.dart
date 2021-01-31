@@ -139,8 +139,8 @@ class _NotifyAddState extends State<NotifyAdd> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // formKey.currentState.save();
           widget.data.saveNotify(notify, formKey);
+          Navigator.of(context).pop();
         },
         child: Icon(Icons.save),
         backgroundColor: Theme.of(context).buttonColor,
