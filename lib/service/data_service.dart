@@ -19,12 +19,13 @@ class DataService extends ChangeNotifier {
     pref.save('NotifyList', encodedData);
   }
 
-  void loadData() async {
+  Future<List<Notify>> loadData() async {
     SharedPref pref = SharedPref();
     try {
       notifyList = Notify.decode(await pref.read('NotifyList'));
     } catch (e) {
       print("ERROR IN NOTIFY LIST = ${e.toString()}");
     }
+    return notifyList;
   }
 }

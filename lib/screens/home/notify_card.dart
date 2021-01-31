@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:meating_notifier/models/notification_model.dart';
 import 'package:meating_notifier/service/data_service.dart';
 import 'package:meating_notifier/service/time_service.dart';
 
 class NotifyCard extends StatelessWidget {
-  final DataService data;
+  final List<Notify> notifyList;
   final int index;
+  final DataService data;
 
-  NotifyCard({Key key, this.data, this.index}) : super(key: key);
+  NotifyCard({Key key, this.notifyList, this.index, this.data})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -22,9 +25,9 @@ class NotifyCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            data.notifyList[index].nid != null
+            notifyList[index].nid != null
                 ? Text(
-                    "${data.notifyList[index].title}",
+                    "${notifyList[index].title}",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   )
                 : Text(
@@ -32,8 +35,8 @@ class NotifyCard extends StatelessWidget {
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
             SizedBox(height: 10),
-            data.notifyList[index].nid != null
-                ? Text("${data.notifyList[index].description}")
+            notifyList[index].nid != null
+                ? Text("${notifyList[index].description}")
                 : Text(
                     "This Is the description of dummy notify card",
                     style: TextStyle(fontSize: 15),
