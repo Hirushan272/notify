@@ -20,13 +20,12 @@ class NotifyCard extends StatelessWidget {
       elevation: 4.0,
       shadowColor: Colors.black,
       child: Container(
-        width: size.width * 0.95,
-        padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
+        padding: EdgeInsets.fromLTRB(10, 10, 5, 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 notifyList[index].nid != null
                     ? Text(
@@ -41,25 +40,34 @@ class NotifyCard extends StatelessWidget {
                       ),
                 SizedBox(height: 10),
                 notifyList[index].nid != null
-                    ? Text("${notifyList[index].description}")
+                    ? Container(
+                        width: size.width * 0.75,
+                        child: Text("${notifyList[index].description}"))
                     : Text(
-                        "This Is the description of dummy notify card",
+                        "This Is the description",
                         style: TextStyle(fontSize: 15),
                       ),
                 SizedBox(height: 10),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //   children: [
-                // data.notifyList[index].nid != null
-                //     ? Text(
-                //         "Date: ${formateDate(data.notifyList[index].startedDay)}")
-                //     : Text("Date: 2021-05-23"),
-                // data.notifyList[index].nid != null
-                //     ? Text(
-                //         "Time: ${formatTimeOfDay(data.notifyList[index].startedTime)}")
-                //     : Text("Time: 09:00"),
-                // ],
-                // ),
+                Container(
+                  width: size.width * 0.8,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        child: data.notifyList[index].nid != null
+                            ? Text(
+                                "Date: ${formateDate(data.notifyList[index].startedDay)}")
+                            : Text("Date: 2021-05-23"),
+                      ),
+                      Container(
+                        child: data.notifyList[index].nid != null
+                            ? Text(
+                                "Time: ${formateToTime(data.notifyList[index].startedTime)}")
+                            : Text("Time: 09:00"),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
             IconButton(
