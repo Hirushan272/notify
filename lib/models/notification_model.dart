@@ -8,7 +8,7 @@ class Notify {
   String description;
   DateTime createdDate;
   DateTime startedDay;
-  // TimeOfDay startedTime;
+  DateTime startedTime;
 
   Notify({
     this.nid,
@@ -16,7 +16,7 @@ class Notify {
     this.description,
     this.createdDate,
     this.startedDay,
-    // this.startedTime,
+    this.startedTime,
   });
 
   static Map<String, dynamic> toMap(Notify notify) => {
@@ -25,7 +25,7 @@ class Notify {
         'description': notify.description,
         'createdDate': notify.createdDate?.toIso8601String(),
         'startedDay': notify.startedDay?.toIso8601String(),
-        // 'startedTime': notify.startedTime?.toString(),
+        'startedTime': notify.startedTime?.toIso8601String(),
       };
 
   factory Notify.fromMap(Map<String, dynamic> map) {
@@ -36,12 +36,12 @@ class Notify {
       title: map['title'],
       description: map['description'],
       createdDate: map['createdDate'] == null
-          ? null
+          ? DateTime.now()
           : DateTime.parse(map['createdDate']),
-      startedDay: map['startedDate'] == null
-          ? null
-          : DateTime.parse(map['startedDate']),
-      // startedTime: map['startedTime'] as TimeOfDay,
+      startedDay: map['startedDay'] == null
+          ? DateTime.now()
+          : DateTime.parse(map['startedDay']),
+      startedTime: DateTime.parse(map['startedTime']),
     );
   }
 

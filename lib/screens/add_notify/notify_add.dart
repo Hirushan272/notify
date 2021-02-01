@@ -28,7 +28,6 @@ class _NotifyAddState extends State<NotifyAdd> {
       setState(() {
         _time = newTime;
       });
-      // notify.startedTime = _time;
     }
   }
 
@@ -91,6 +90,7 @@ class _NotifyAddState extends State<NotifyAdd> {
                     onSaved: (newValue) {
                       notify.description = newValue;
                       notify.startedDay = selectedDate;
+                      notify.startedTime = toDateTime(_time);
                     },
                   ),
                 ),

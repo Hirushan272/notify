@@ -11,8 +11,10 @@ class DataService extends ChangeNotifier {
     SharedPref pref = SharedPref();
     Uuid uuid = Uuid();
     notify.createdDate = DateTime.now();
+
     notify.nid = uuid.v1();
     notifyList.add(notify);
+
     notifyListeners();
     List<Notify> newList = notifyList;
     final String encodedData = Notify.encode(newList);
