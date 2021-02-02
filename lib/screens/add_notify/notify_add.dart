@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:meating_notifier/models/notification_model.dart';
-import 'package:meating_notifier/service/data_service.dart';
-import 'package:meating_notifier/service/time_service.dart';
+import '../../models/notification_model.dart';
+import '../../service/data_service.dart';
+import '../../service/time_service.dart';
 
 class NotifyAdd extends StatefulWidget {
   static const routeName = "/add_notify";

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
-import 'package:meating_notifier/screens/add_notify/notify_add.dart';
-import 'package:meating_notifier/service/data_service.dart';
+import 'screens/add_notify/notify_add.dart';
+import 'service/data_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'models/constants.dart';
-import 'models/notification_model.dart';
-import 'screens/home_page.dart';
+import 'screens/home/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

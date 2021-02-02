@@ -32,6 +32,7 @@ dependencies:
   uuid: ^2.2.2
   shared_preferences: ^0.5.8
   flutter_riverpod: ^0.12.2
+  flutter_local_notifications: ^4.0.0
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:meating_notifier/models/notification_model.dart';
-import 'package:meating_notifier/models/sharedPref.dart';
+import '../models/notification_model.dart';
+import '../models/sharedPref.dart';
 import 'package:uuid/uuid.dart';
 
 class DataService extends ChangeNotifier {
