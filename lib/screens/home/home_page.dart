@@ -8,6 +8,9 @@ import '../../service/data_service.dart';
 final dataService = ChangeNotifierProvider((ref) => DataService());
 
 class HomePage extends StatelessWidget {
+  final Function notify;
+
+  const HomePage({Key key, this.notify}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,6 +55,7 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          notify();
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => NotifyAdd(
