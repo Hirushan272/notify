@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/all.dart';
-import 'package:meating_notifier/screens/add_notify/notify_add.dart';
-import 'package:meating_notifier/service/data_service.dart';
+import 'screens/add_notify/notify_add.dart';
+import 'service/data_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'models/constants.dart';
-import 'models/notification_model.dart';
-import 'screens/home_page.dart';
+import 'screens/home/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,12 +15,40 @@ void main() async {
 
 final dataService = ChangeNotifierProvider((ref) => DataService());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  FlutterLocalNotificationsPlugin flutterNotification;
+
+  @override
+  void initState() {
+    super.initState();
+    var androidInitialize = AndroidInitializationSettings('images');
+    var initializationSettings =
+        InitializationSettings(android: androidInitialize);
+    flutterNotification = FlutterLocalNotificationsPlugin();
+    flutterNotification.initialize(initializationSettings,
+        onSelectNotification: notificationSelected);
+  }
+
+  Future showNotification() async {
+    var androidDetails = AndroidNotificationDetails(
+        "Channel Id", "Channel Name", "This is my channel",
+        playSound: false, enableVibration: false, importance: Importance.max);
+    var generalNotificationDetails =
+        NotificationDetails(android: androidDetails);
+    await flutterNotification.show(
+        0, "Task", "You have to do a task", generalNotificationDetails);
+  }
+
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
       child: MaterialApp(
-        home: HomePage(),
+        home: HomePage(notify: showNotification),
         theme: ThemeData(
           primaryColor: Colors.blueGrey[900],
           buttonColor: Colors.brown[800],
@@ -31,4 +59,6 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+
+  Future notificationSelected(String payload) async {}
 }
