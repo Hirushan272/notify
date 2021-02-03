@@ -64,7 +64,13 @@ class _MyAppState extends State<MyApp> {
 
 //! SHOW NOTIFICATION FUNCTION HERE
 
-  Future showNotification() async {
+  Future showNotification(
+      DateTime showTime, String task, String description) async {
+    String title;
+    String note;
+    task == null ? title = "Task" : title = task;
+    description == null ? note = "You have a Meeting Now" : note = description;
+
     var androidDetails = AndroidNotificationDetails(
       "Channel Id",
       "Channel Name",
@@ -78,9 +84,11 @@ class _MyAppState extends State<MyApp> {
         NotificationDetails(android: androidDetails);
     await flutterNotification.zonedSchedule(
         0,
-        "Task",
-        "You have to do a task",
-        tz.TZDateTime.now(tz.local).add(const Duration(seconds: 15)),
+        title,
+        note,
+        tz.TZDateTime.from(showTime, tz.local),
+        // tz.TZDateTime.now(tz.local)
+        //     .add(Duration(days: day, hours: hour, minutes: minute)),
         generalNotificationDetails,
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:

@@ -136,7 +136,10 @@ class _NotifyAddState extends State<NotifyAdd> {
                 ],
               ),
               FlatButton(
-                  onPressed: () => widget.showNotification(),
+                  onPressed: () => widget.showNotification(
+                      notificationDateTime(_time, selectedDate),
+                      notify.title,
+                      notify.description),
                   child: Text("Notification")),
             ],
           ),
@@ -145,6 +148,8 @@ class _NotifyAddState extends State<NotifyAdd> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           widget.data.saveNotify(notify, formKey);
+          widget.showNotification(notificationDateTime(_time, selectedDate),
+              notify.title, notify.description);
           Navigator.of(context).pop();
         },
         child: Icon(Icons.save),
