@@ -55,10 +55,10 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          notify();
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => NotifyAdd(
+                showNotification: notify,
                 data: context.read(dataService),
               ),
             ),

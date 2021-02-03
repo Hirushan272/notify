@@ -33,7 +33,9 @@ dependencies:
   shared_preferences: ^0.5.8
   flutter_riverpod: ^0.12.2
   # flutter_local_notifications: ^1.4.4+4
-  flutter_local_notifications: ^3.0.3
+  flutter_local_notifications: ^4.0.0
+  timezone: ^0.6.1
+  flutter_native_timezone: ^1.0.4
 
 dev_dependencies:
   flutter_test:
