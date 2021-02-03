@@ -103,11 +103,7 @@ class _NotifyAddState extends State<NotifyAdd> {
                 children: [
                   Row(
                     children: [
-                      Text(
-                        "Date:",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
+                      Icon(Icons.calendar_today),
                       FlatButton(
                           onPressed: () => _selectDate(context),
                           child: Text(
@@ -119,11 +115,7 @@ class _NotifyAddState extends State<NotifyAdd> {
                   ),
                   Row(
                     children: [
-                      Text(
-                        "Time:",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
+                      Icon(Icons.watch_later_rounded),
                       FlatButton(
                           onPressed: () => _selectTime(),
                           child: Text(
@@ -135,12 +127,12 @@ class _NotifyAddState extends State<NotifyAdd> {
                   ),
                 ],
               ),
-              FlatButton(
-                  onPressed: () => widget.showNotification(
-                      notificationDateTime(_time, selectedDate),
-                      notify.title,
-                      notify.description),
-                  child: Text("Notification")),
+              // FlatButton(
+              //     onPressed: () => widget.showNotification(
+              //         notificationDateTime(_time, selectedDate),
+              //         notify.title,
+              //         notify.description),
+              //     child: Text("Notification")),
             ],
           ),
         ),

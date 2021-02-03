@@ -28,7 +28,7 @@ DateTime notificationDateTime(TimeOfDay time, DateTime date) {
   int day = date.day;
   int hour = time.hour;
   int minute = time.minute - 1;
-  int second = DateTime.now().second;
+  int second = 0;
   // date.year == DateTime.now().year ? year = 0 : year = date.year;
   // date.month == DateTime.now().month ? month = 0 : month = date.month;
   // date.day == DateTime.now().day ? day = 0 : day = date.day;
