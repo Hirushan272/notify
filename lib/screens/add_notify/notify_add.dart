@@ -6,8 +6,10 @@ import '../../service/time_service.dart';
 class NotifyAdd extends StatefulWidget {
   static const routeName = "/add_notify";
   final DataService data;
+  final Function showNotification;
 
-  const NotifyAdd({Key key, this.data}) : super(key: key);
+  const NotifyAdd({Key key, this.data, this.showNotification})
+      : super(key: key);
 
   @override
   _NotifyAddState createState() => _NotifyAddState();
@@ -133,6 +135,9 @@ class _NotifyAddState extends State<NotifyAdd> {
                   ),
                 ],
               ),
+              FlatButton(
+                  onPressed: () => widget.showNotification(),
+                  child: Text("Notification")),
             ],
           ),
         ),

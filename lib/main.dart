@@ -1,17 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'screens/add_notify/notify_add.dart';
 import 'service/data_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'models/constants.dart';
 import 'screens/home/home_page.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 void main() async {
+  // tz.initializeTimeZones();
   WidgetsFlutterBinding.ensureInitialized();
+  await initPlatformState();
+  await _configureLocalTimeZone();
   Constants.prefs = await SharedPreferences.getInstance();
   runApp(MyApp());
 }
+
+//!INITIALIZE TIMEZONE FOR SCHEDULED NOTIFICATIONS
+
+String timezone;
+Future<void> initPlatformState() async {
+  // Platform messages may fail, so we use a try/catch PlatformException.
+  try {
+    timezone = await FlutterNativeTimezone.getLocalTimezone();
+  } on PlatformException {
+    timezone = 'Failed to get the timezone.';
+  }
+}
+
+Future<void> _configureLocalTimeZone() async {
+  tz.initializeTimeZones();
+  final String timeZoneName = timezone;
+  tz.setLocalLocation(tz.getLocation(timeZoneName));
+}
+
+// const MethodChannel platform =
+//     MethodChannel('flutter_local_notifications_example');
 
 final dataService = ChangeNotifierProvider((ref) => DataService());
 
@@ -34,15 +62,44 @@ class _MyAppState extends State<MyApp> {
         onSelectNotification: notificationSelected);
   }
 
+//! SHOW NOTIFICATION FUNCTION HERE
+
   Future showNotification() async {
     var androidDetails = AndroidNotificationDetails(
-        "Channel Id", "Channel Name", "This is my channel",
-        playSound: false, enableVibration: false, importance: Importance.max);
+      "Channel Id",
+      "Channel Name",
+      "This is my channel",
+      playSound: false,
+      enableVibration: true,
+      importance: Importance.max,
+      priority: Priority.high,
+    );
     var generalNotificationDetails =
         NotificationDetails(android: androidDetails);
-    await flutterNotification.show(
-        0, "Task", "You have to do a task", generalNotificationDetails);
+    await flutterNotification.zonedSchedule(
+        0,
+        "Task",
+        "You have to do a task",
+        tz.TZDateTime.now(tz.local).add(const Duration(seconds: 15)),
+        generalNotificationDetails,
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime);
   }
+
+  //  Future<void> _zonedScheduleNotification() async {
+  //   await flutterLocalNotificationsPlugin.zonedSchedule(
+  //       0,
+  //       'scheduled title',
+  //       'scheduled body',
+  //       tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+  //       const NotificationDetails(
+  //           android: AndroidNotificationDetails('your channel id',
+  //               'your channel name', 'your channel description')),
+  //       androidAllowWhileIdle: true,
+  //       uiLocalNotificationDateInterpretation:
+  //           UILocalNotificationDateInterpretation.absoluteTime);
+  // }
 
   @override
   Widget build(BuildContext context) {
