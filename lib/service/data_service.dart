@@ -10,6 +10,7 @@ class DataService extends ChangeNotifier {
     formKey.currentState.save();
     SharedPref pref = SharedPref();
     Uuid uuid = Uuid();
+
     notify.createdDate = DateTime.now();
 
     notify.nid = uuid.v1();

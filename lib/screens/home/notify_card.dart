@@ -53,27 +53,51 @@ class NotifyCard extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        child: data.notifyList[index].startedDay != null
-                            ? Text(
-                                "Date: ${formateDate(data.notifyList[index].startedDay)}")
-                            : Text("Date: 2021-05-23"),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.calendar_today,
+                            size: 16,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: data.notifyList[index].startedDay != null
+                                ? Text(
+                                    "${formateDate(data.notifyList[index].startedDay)}")
+                                : Text("2021-05-23"),
+                          ),
+                        ],
                       ),
-                      Container(
-                        child: data.notifyList[index].startedTime != null
-                            ? Text(
-                                "Time: ${formateToTime(data.notifyList[index].startedTime)}")
-                            : Text("Time: 09:00"),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.watch_later_rounded,
+                            size: 20,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: data.notifyList[index].startedTime != null
+                                ? Text(
+                                    "${formateToTime(data.notifyList[index].startedTime)}")
+                                : Text("09:00"),
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ),
               ],
             ),
-            IconButton(
-              icon: Icon(Icons.delete),
-              onPressed: () =>
-                  data.deleteNotifyItem(data.notifyList[index].nid),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.red[100],
+                shape: BoxShape.circle,
+              ),
+              child: IconButton(
+                icon: Icon(Icons.delete),
+                onPressed: () =>
+                    data.deleteNotifyItem(data.notifyList[index].nid),
+              ),
             ),
           ],
         ),
