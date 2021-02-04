@@ -2,8 +2,9 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 
 onBasicAlertPressed(context) {
   Alert(
+    type: AlertType.warning,
     context: context,
-    title: "RFLUTTER ALERT",
-    desc: "Flutter is more awesome with RFlutter Alert.",
+    title: "ALERT",
+    desc: "Can't set notification for history.",
   ).show();
 }

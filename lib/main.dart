@@ -149,6 +149,7 @@ class _MyAppState extends State<MyApp> {
           cancelNotify: cancelNotification,
         ),
         theme: ThemeData(
+          buttonTheme: ButtonThemeData(buttonColor: Colors.blueGrey[300]),
           primaryColor: Colors.blueGrey[900],
           buttonColor: Colors.brown[800],
         ),
