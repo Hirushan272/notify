@@ -12,9 +12,8 @@ String formatTimeOfDay(TimeOfDay tod) {
   return format.format(dt);
 }
 
-DateTime toDateTime(TimeOfDay tod) {
-  final now = new DateTime.now();
-  final dt = DateTime(now.year, now.month, now.day, tod.hour, tod.minute);
+DateTime toDateTime(TimeOfDay tod, DateTime time) {
+  final dt = DateTime(time.year, time.month, time.day, tod.hour, tod.minute);
   return dt;
 }
 
@@ -27,7 +26,7 @@ DateTime notificationDateTime(TimeOfDay time, DateTime date) {
   int month = date.month;
   int day = date.day;
   int hour = time.hour;
-  int minute = time.minute - 1;
+  int minute = time.minute;
   int second = 0;
   // date.year == DateTime.now().year ? year = 0 : year = date.year;
   // date.month == DateTime.now().month ? month = 0 : month = date.month;
