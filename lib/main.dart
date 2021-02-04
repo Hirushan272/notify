@@ -84,6 +84,10 @@ class _MyAppState extends State<MyApp> {
             UILocalNotificationDateInterpretation.absoluteTime);
   }
 
+  Future<void> cancelNotification(int id) async {
+    await flutterNotification.cancel(id);
+  }
+
   // Future pendingNotification(
   //     int id, String title, String body, String payload) async {
   //   final List<PendingNotificationRequest> pendingNotificationRequests =
@@ -140,7 +144,10 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return ProviderScope(
       child: MaterialApp(
-        home: HomePage(notify: showNotification),
+        home: HomePage(
+          notify: showNotification,
+          cancelNotify: cancelNotification,
+        ),
         theme: ThemeData(
           primaryColor: Colors.blueGrey[900],
           buttonColor: Colors.brown[800],

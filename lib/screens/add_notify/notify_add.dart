@@ -141,11 +141,15 @@ class _NotifyAddState extends State<NotifyAdd> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          int id = random.nextInt(100000000);
+          notify.id = random.nextInt(100000000);
+
           widget.data.saveNotify(notify, formKey);
-          widget.showNotification(id, notificationDateTime(_time, selectedDate),
-              notify.title, notify.description);
-          print(id.toString());
+          widget.showNotification(
+              notify.id,
+              notificationDateTime(_time, selectedDate),
+              notify.title,
+              notify.description);
+          print(notify.id.toString());
           Navigator.of(context).pop();
         },
         child: Icon(Icons.save),

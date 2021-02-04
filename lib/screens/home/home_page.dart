@@ -9,8 +9,9 @@ final dataService = ChangeNotifierProvider((ref) => DataService());
 
 class HomePage extends StatelessWidget {
   final Function notify;
+  final Function cancelNotify;
 
-  const HomePage({Key key, this.notify}) : super(key: key);
+  const HomePage({Key key, this.notify, this.cancelNotify}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,8 +40,10 @@ class HomePage extends StatelessWidget {
                           ? NotifyCard(
                               notifyList: snapshot.data,
                               index: index,
-                              data: data)
-                          : Text("No Data");
+                              data: data,
+                              cancelNotify: cancelNotify,
+                            )
+                          : Center(child: Text("No Data"));
                     },
                   ),
                 );
