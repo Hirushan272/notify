@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meating_notifier/widgets/alert_dialog.dart';
 import '../../models/notification_model.dart';
 import '../../service/data_service.dart';
 import '../../service/time_service.dart';
@@ -94,7 +95,7 @@ class _NotifyAddState extends State<NotifyAdd> {
                     onSaved: (newValue) {
                       notify.description = newValue;
                       notify.startedDay = selectedDate;
-                      notify.startedTime = toDateTime(_time);
+                      notify.startedTime = toDateTime(_time, selectedDate);
                     },
                   ),
                 ),
@@ -142,15 +143,20 @@ class _NotifyAddState extends State<NotifyAdd> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           notify.id = random.nextInt(100000000);
+          formKey.currentState.save();
 
-          widget.data.saveNotify(notify, formKey);
-          widget.showNotification(
-              notify.id,
-              notificationDateTime(_time, selectedDate),
-              notify.title,
-              notify.description);
-          print(notify.id.toString());
-          Navigator.of(context).pop();
+          if (notify.startedTime.isAfter(DateTime.now())) {
+            widget.data.saveNotify(notify, formKey);
+            widget.showNotification(
+                notify.id,
+                notificationDateTime(_time, selectedDate),
+                notify.title,
+                notify.description);
+            print(notify.id.toString());
+            Navigator.of(context).pop();
+          } else {
+            onBasicAlertPressed(context);
+          }
         },
         child: Icon(Icons.save),
         backgroundColor: Theme.of(context).buttonColor,
