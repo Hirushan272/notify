@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 class Notify {
+  int id;
   String nid;
   String title;
   String description;
@@ -9,6 +10,7 @@ class Notify {
   DateTime startedTime;
 
   Notify({
+    this.id,
     this.nid,
     this.title,
     this.description,
@@ -18,6 +20,7 @@ class Notify {
   });
 
   static Map<String, dynamic> toMap(Notify notify) => {
+        'id': notify.id,
         'nid': notify.nid,
         'title': notify.title,
         'description': notify.description,
@@ -30,6 +33,7 @@ class Notify {
     if (map == null) return null;
 
     return Notify(
+      id: map['id'],
       nid: map['nid'],
       title: map['title'],
       description: map['description'],
