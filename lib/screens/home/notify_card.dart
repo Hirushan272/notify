@@ -7,8 +7,9 @@ class NotifyCard extends StatelessWidget {
   final List<Notify> notifyList;
   final int index;
   final DataService data;
-
-  NotifyCard({Key key, this.notifyList, this.index, this.data})
+  final Function cancelNotify;
+  NotifyCard(
+      {Key key, this.notifyList, this.index, this.data, this.cancelNotify})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -51,7 +52,7 @@ class NotifyCard extends StatelessWidget {
                 Container(
                   width: size.width * 0.8,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         children: [
@@ -68,6 +69,7 @@ class NotifyCard extends StatelessWidget {
                           ),
                         ],
                       ),
+                      SizedBox(width: 20),
                       Row(
                         children: [
                           Icon(
@@ -94,10 +96,11 @@ class NotifyCard extends StatelessWidget {
                 shape: BoxShape.circle,
               ),
               child: IconButton(
-                icon: Icon(Icons.delete),
-                onPressed: () =>
-                    data.deleteNotifyItem(data.notifyList[index].nid),
-              ),
+                  icon: Icon(Icons.delete),
+                  onPressed: () {
+                    cancelNotify(data.notifyList[index].id);
+                    data.deleteNotifyItem(data.notifyList[index].nid);
+                  }),
             ),
           ],
         ),
