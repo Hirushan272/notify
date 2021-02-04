@@ -12,7 +12,6 @@ import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 void main() async {
-  // tz.initializeTimeZones();
   WidgetsFlutterBinding.ensureInitialized();
   await initPlatformState();
   await _configureLocalTimeZone();
@@ -24,7 +23,6 @@ void main() async {
 
 String timezone;
 Future<void> initPlatformState() async {
-  // Platform messages may fail, so we use a try/catch PlatformException.
   try {
     timezone = await FlutterNativeTimezone.getLocalTimezone();
   } on PlatformException {
@@ -37,9 +35,6 @@ Future<void> _configureLocalTimeZone() async {
   final String timeZoneName = timezone;
   tz.setLocalLocation(tz.getLocation(timeZoneName));
 }
-
-// const MethodChannel platform =
-//     MethodChannel('flutter_local_notifications_example');
 
 final dataService = ChangeNotifierProvider((ref) => DataService());
 
@@ -65,7 +60,7 @@ class _MyAppState extends State<MyApp> {
 //! SHOW NOTIFICATION FUNCTION HERE
 
   Future showNotification(
-      DateTime showTime, String task, String description) async {
+      int id, DateTime showTime, String task, String description) async {
     String title;
     String note;
     task == null ? title = "Task" : title = task;
@@ -82,18 +77,21 @@ class _MyAppState extends State<MyApp> {
     );
     var generalNotificationDetails =
         NotificationDetails(android: androidDetails);
-    await flutterNotification.zonedSchedule(
-        0,
-        title,
-        note,
-        tz.TZDateTime.from(showTime, tz.local),
-        // tz.TZDateTime.now(tz.local)
-        //     .add(Duration(days: day, hours: hour, minutes: minute)),
-        generalNotificationDetails,
+    await flutterNotification.zonedSchedule(id, title, note,
+        tz.TZDateTime.from(showTime, tz.local), generalNotificationDetails,
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime);
   }
+
+  // Future pendingNotification(
+  //     int id, String title, String body, String payload) async {
+  //   final List<PendingNotificationRequest> pendingNotificationRequests =
+  //       await flutterNotification.pendingNotificationRequests();
+
+  //   pendingNotificationRequests
+  //       .add(PendingNotificationRequest(id, title, body, payload));
+  // }
 
   //  Future<void> _zonedScheduleNotification() async {
   //   await flutterLocalNotificationsPlugin.zonedSchedule(
@@ -104,6 +102,35 @@ class _MyAppState extends State<MyApp> {
   //       const NotificationDetails(
   //           android: AndroidNotificationDetails('your channel id',
   //               'your channel name', 'your channel description')),
+  //       androidAllowWhileIdle: true,
+  //       uiLocalNotificationDateInterpretation:
+  //           UILocalNotificationDateInterpretation.absoluteTime);
+  // }
+
+  // Future showPendingNotification(
+  //     DateTime showTime, String task, String description) async {
+  //   String title;
+  //   String note;
+  //   task == null ? title = "Task" : title = task;
+  //   description == null ? note = "You have a Meeting Now" : note = description;
+
+  //   var androidDetails = AndroidNotificationDetails(
+  //     "Channel Id",
+  //     "Channel Name",
+  //     "This is my channel",
+  //     playSound: false,
+  //     enableVibration: true,
+  //     importance: Importance.max,
+  //     priority: Priority.high,
+  //   );
+  //   var generalNotificationDetails =
+  //       NotificationDetails(android: androidDetails);
+  //   await flutterNotification.zonedSchedule(
+  //       0,
+  //       title,
+  //       note,
+  //       tz.TZDateTime.from(showTime, tz.local),
+  //       generalNotificationDetails,
   //       androidAllowWhileIdle: true,
   //       uiLocalNotificationDateInterpretation:
   //           UILocalNotificationDateInterpretation.absoluteTime);

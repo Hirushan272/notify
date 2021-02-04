@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import '../../models/notification_model.dart';
 import '../../service/data_service.dart';
 import '../../service/time_service.dart';
+import 'dart:math';
 
 class NotifyAdd extends StatefulWidget {
   static const routeName = "/add_notify";
   final DataService data;
   final Function showNotification;
 
-  const NotifyAdd({Key key, this.data, this.showNotification})
-      : super(key: key);
+  NotifyAdd({Key key, this.data, this.showNotification}) : super(key: key);
 
   @override
   _NotifyAddState createState() => _NotifyAddState();
@@ -20,6 +20,8 @@ class _NotifyAddState extends State<NotifyAdd> {
 
   TimeOfDay _time = TimeOfDay(hour: 7, minute: 15);
   DateTime selectedDate = DateTime.now();
+
+  var random = Random();
 
   void _selectTime() async {
     final TimeOfDay newTime = await showTimePicker(
@@ -139,9 +141,11 @@ class _NotifyAddState extends State<NotifyAdd> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          int id = random.nextInt(100000000);
           widget.data.saveNotify(notify, formKey);
-          widget.showNotification(notificationDateTime(_time, selectedDate),
+          widget.showNotification(id, notificationDateTime(_time, selectedDate),
               notify.title, notify.description);
+          print(id.toString());
           Navigator.of(context).pop();
         },
         child: Icon(Icons.save),
