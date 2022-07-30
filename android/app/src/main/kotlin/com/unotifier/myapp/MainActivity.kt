@@ -1,4 +1,4 @@
-package com.example.meating_notifier
+package com.unotifier.myapp
 
 import io.flutter.embedding.android.FlutterActivity
 

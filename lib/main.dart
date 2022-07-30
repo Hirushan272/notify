@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
-import 'package:flutter_riverpod/all.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:flutter_riverpod/all.dart';
 import 'screens/add_notify/notify_add.dart';
 import 'service/data_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -69,7 +70,7 @@ class _MyAppState extends State<MyApp> {
     var androidDetails = AndroidNotificationDetails(
       "Channel Id",
       "Channel Name",
-      "This is my channel",
+      // "This is my channel",
       playSound: false,
       enableVibration: true,
       importance: Importance.max,
@@ -144,6 +145,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return ProviderScope(
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: HomePage(
           notify: showNotification,
           cancelNotify: cancelNotification,
@@ -151,7 +153,7 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           buttonTheme: ButtonThemeData(buttonColor: Colors.blueGrey[300]),
           primaryColor: Colors.blueGrey[900],
-          buttonColor: Colors.brown[800],
+          // buttonColor: Colors.brown[800],
         ),
         routes: {
           NotifyAdd.routeName: (context) => NotifyAdd(),

@@ -19,7 +19,7 @@ class NotifyAdd extends StatefulWidget {
 class _NotifyAddState extends State<NotifyAdd> {
   Notify notify = Notify();
 
-  TimeOfDay _time = TimeOfDay(hour: 7, minute: 15);
+  TimeOfDay _time = TimeOfDay.now();
   DateTime selectedDate = DateTime.now();
 
   var random = Random();
@@ -54,16 +54,53 @@ class _NotifyAddState extends State<NotifyAdd> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Add Notify"),
-        centerTitle: true,
+      appBar: PreferredSize(
+        preferredSize: AppBar().preferredSize,
+        child: SafeArea(
+          child: Container(
+            color: Colors.white,
+            child: AppBar(
+              centerTitle: true,
+              title: Text(
+                "Add Notify",
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+              ),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(25.0),
+                      bottomRight: Radius.circular(25.0))),
+              elevation: 3,
+              backgroundColor: Colors.white,
+              leading: GestureDetector(
+                child: Icon(
+                  Icons.keyboard_backspace_sharp,
+                  color: Colors.black,
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+          ),
+        ),
       ),
+      // appBar: AppBar(
+      //   title: Text("Add Notify"),
+      //   centerTitle: true,
+      // ),
       body: Form(
         key: formKey,
         child: Container(
           padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
           child: Column(
+            // mainAxisAlignment: MainAxisAlignmen,
             children: [
+              Image.asset(
+                "images/add-notify.png",
+                scale: 3,
+              ),
+              SizedBox(height: 50),
               Container(
                 decoration: BoxDecoration(
                   color: Colors.grey[300],
@@ -107,24 +144,28 @@ class _NotifyAddState extends State<NotifyAdd> {
                   Row(
                     children: [
                       Icon(Icons.calendar_today),
-                      FlatButton(
+                      TextButton(
                           onPressed: () => _selectDate(context),
                           child: Text(
                             "${formateDate(selectedDate)}",
                             style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
                           )),
                     ],
                   ),
                   Row(
                     children: [
                       Icon(Icons.watch_later_rounded),
-                      FlatButton(
+                      TextButton(
                           onPressed: () => _selectTime(),
                           child: Text(
                             "${formatTimeOfDay(_time)}",
                             style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
                           )),
                     ],
                   ),
@@ -159,7 +200,7 @@ class _NotifyAddState extends State<NotifyAdd> {
           }
         },
         child: Icon(Icons.save),
-        backgroundColor: Theme.of(context).buttonColor,
+        backgroundColor: Theme.of(context).primaryColor,
       ),
     );
   }

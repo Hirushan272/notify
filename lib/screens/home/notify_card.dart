@@ -15,8 +15,9 @@ class NotifyCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Card(
+      color: Colors.yellow[200],
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(1.0),
+        borderRadius: BorderRadius.circular(10.0),
       ),
       elevation: 4.0,
       shadowColor: Colors.black,
@@ -29,10 +30,13 @@ class NotifyCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 notifyList[index].title != null
-                    ? Text(
-                        "${notifyList[index].title}",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                    ? Container(
+                        width: size.width * 0.7,
+                        child: Text(
+                          "${notifyList[index].title}",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
                       )
                     : Text(
                         "Title",
@@ -42,7 +46,7 @@ class NotifyCard extends StatelessWidget {
                 SizedBox(height: 10),
                 notifyList[index].description != null
                     ? Container(
-                        width: size.width * 0.75,
+                        width: size.width * 0.7,
                         child: Text("${notifyList[index].description}"))
                     : Text(
                         "This Is the description",
@@ -50,7 +54,7 @@ class NotifyCard extends StatelessWidget {
                       ),
                 SizedBox(height: 10),
                 Container(
-                  width: size.width * 0.8,
+                  width: size.width * 0.7,
                   child: Row(
                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
